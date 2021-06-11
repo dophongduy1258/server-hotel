@@ -3,6 +3,7 @@ const roomsResolvers = require("./room");
 const hotelsResolvers = require("./hotel");
 const ordersDetailResolvers = require("./orderDetail");
 const paymentsResolvers = require("./payment");
+const vouchersResolvers = require("./voucher");
 
 module.exports = {
   Query: {
@@ -11,6 +12,7 @@ module.exports = {
     ...hotelsResolvers.Query,
     ...ordersDetailResolvers.Query,
     ...paymentsResolvers.Query,
+    ...vouchersResolvers.Query,
   },
   Mutation: {
     ...usersResolvers.Mutation,
@@ -18,5 +20,6 @@ module.exports = {
     ...hotelsResolvers.Mutation,
     ...ordersDetailResolvers.Mutation,
     ...paymentsResolvers.Mutation,
+    ...vouchersResolvers.Mutation,
   },
 };
