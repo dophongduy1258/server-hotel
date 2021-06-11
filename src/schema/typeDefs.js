@@ -11,6 +11,18 @@ const typeDefs = gql`
     token: String
   }
 
+  type Voucher {
+    code: String
+    voucher: String
+    displayName: String
+    signature: String
+    couponCondition: Int
+    isDisplay: Boolean
+    amount: Int
+    createAt: String
+    updateAt: String
+  }
+
   type User {
     id: String!
     name: String
@@ -23,6 +35,9 @@ const typeDefs = gql`
     myWallet: Int
     token: String
     createAt: String
+    updateAt: String
+    coupon: Int
+    vouchers: [Voucher]
   }
 
   # ******************  HOTEL  ******************
@@ -254,6 +269,15 @@ const typeDefs = gql`
     token: String
   }
 
+  input CreateVoucher {
+    code: String
+    voucher: String
+    displayName: String
+    signature: String
+    couponCondition: Int
+    isDisplay: Boolean
+    amount: Int
+  }
   # ==================================================================================
 
   type Query {
@@ -282,8 +306,18 @@ const typeDefs = gql`
 
     # ******************  END HOTEL  ******************
 
+    # ******************  ROOM  ******************
     getRooms(hotelId: String): [Room]
     getRoom(id: String!): Room
+
+    # ******************  END ROOM  ******************
+
+    # ******************  VOUCHER  ******************
+
+    getVouchers: [Voucher]
+    getVoucher(condition: String): Voucher
+
+    # ******************  END VOUCHER  ******************
 
     getTodos: [Todo]
   }
@@ -329,6 +363,11 @@ const typeDefs = gql`
 
     # ******************  END  CART  ******************
     addTodo(inputs: AddTodo): AddToDoResponse
+
+    # ******************  VOUCHER  ******************
+    createVoucher(inputs: CreateVoucher): Voucher
+
+    # ******************  END VOUCHER  ******************
   }
 `;
 module.exports = typeDefs;
