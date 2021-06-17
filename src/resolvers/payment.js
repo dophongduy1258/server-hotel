@@ -50,6 +50,10 @@ module.exports = {
             },{coupon:user.coupon + couponReward}
             )
             
+            await User.updateOne({
+              'vouchers.code':orderDetail.codeVoucher
+            },{$set:{"vouchers.$.status":true}})
+
             await OrderDetail.findByIdAndUpdate(
               orderDetail._id,
               { isCheckout: true,
@@ -69,6 +73,10 @@ module.exports = {
             },{coupon:user.coupon + couponReward}
             )
             
+            await User.updateOne({
+              'vouchers.code':orderDetail.codeVoucher
+            },{$set:{"vouchers.$.status":true}})
+
             await OrderDetail.findByIdAndUpdate(
               orderDetail._id,
               { isCheckout: true,
@@ -110,6 +118,10 @@ module.exports = {
             },{coupon:user.coupon + couponReward}
             )
             
+            await User.updateOne({
+              'vouchers.code':orderDetail.codeVoucher
+            },{$set:{"vouchers.$.status":true}})
+
             await OrderDetail.findByIdAndUpdate(
               orderDetail._id,
               { isCheckout: true,
@@ -128,6 +140,10 @@ module.exports = {
             },{coupon:user.coupon + couponReward}
             )
             
+            await User.updateOne({
+              'vouchers.code':orderDetail.codeVoucher
+            },{$set:{"vouchers.$.status":true}})
+
             await OrderDetail.findByIdAndUpdate(
               orderDetail._id,
               { isCheckout: true,
