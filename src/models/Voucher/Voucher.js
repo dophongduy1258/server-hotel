@@ -10,6 +10,7 @@ const VoucherSchema = new Schema({
   signature: String,
   couponCondition: Number,
   isDisplay: Boolean,
+  price:Number,
   amount: Number,
   createAt: String,
   updateAt: String,

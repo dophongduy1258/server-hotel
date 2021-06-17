@@ -38,8 +38,11 @@ const UserSchema = new Schema({
   },
   vouchers: [
     {
-      voucher: String,
+      code:String,
+      voucher:String,
       displayName: String,
+      status:Boolean,
+      createAt:String,
     },
   ],
 });

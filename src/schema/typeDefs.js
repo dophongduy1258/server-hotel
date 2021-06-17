@@ -12,12 +12,14 @@ const typeDefs = gql`
   }
 
   type Voucher {
+    id: String!
     code: String
     voucher: String
     displayName: String
     signature: String
     couponCondition: Int
     isDisplay: Boolean
+    price:Int
     amount: Int
     createAt: String
     updateAt: String
@@ -37,7 +39,16 @@ const typeDefs = gql`
     createAt: String
     updateAt: String
     coupon: Int
-    vouchers: [Voucher]
+    vouchers: [voucher]
+  }
+
+  type voucher{
+    id:String
+    code:String
+    voucher:String
+    displayName:String
+    status:Boolean
+    createAt:String
   }
 
   # ******************  HOTEL  ******************
@@ -138,6 +149,9 @@ const typeDefs = gql`
   type LoginResponse {
     message: String
   }
+  type Response{
+    message:String
+  }
 
   # ******************  CART  ******************
   type Cart {
@@ -156,9 +170,12 @@ const typeDefs = gql`
     price: Int
     quality: String
     hotel: String
+    moneyDecreased:Int
     total: Int
     email: String
     isCheckout: Boolean
+    codeVoucher:String
+    statusOrder:Boolean
     createAt: String
   }
 
@@ -167,6 +184,7 @@ const typeDefs = gql`
     paymentMethod: String
     orderDetail: String
     checkout: Int
+    codeVoucher:String
     email: String
     createAt: String
   }
@@ -276,8 +294,11 @@ const typeDefs = gql`
     signature: String
     couponCondition: Int
     isDisplay: Boolean
+    price:Int
     amount: Int
   }
+  
+
   # ==================================================================================
 
   type Query {
@@ -330,7 +351,7 @@ const typeDefs = gql`
     login(email: String, password: String): User
 
     register(inputs: Register): User
-
+    exchangeVoucher(token:String,voucherID:String):Response
     # ******************  END USER  ******************
 
     # filterHotelByCondition(type: String, value: String): [Hotel]
@@ -354,14 +375,16 @@ const typeDefs = gql`
     deleteRoom(roomID: String): DeleteResponse
     # ******************  END ROOM  ******************
 
-    # ******************  CART  ******************
+    # ******************  PAYMENT  ******************
     addOrderDetail(roomID: String, token: String): OrderDetailResponse
     deleteOrderDetail(orderDetailID: String): DeleteResponse
+    addVoucher(codeVoucher:String,orderDetailID: String):Response
     checkout(inputs: Checkout): Payment
     cancelOrderDetail(orderDetailID: String): OrderDetailResponse
+    checkoutRoom(confirm:Boolean,orderDetailID:String):Response
     # addOrderDetail(inputs: AddOrderDetail): OrderDetailResponse
 
-    # ******************  END  CART  ******************
+    # ******************  END  PAYMENT  ******************
     addTodo(inputs: AddTodo): AddToDoResponse
 
     # ******************  VOUCHER  ******************
