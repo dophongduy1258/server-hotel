@@ -10,6 +10,7 @@ const {
   validateLoginInput,
 } = require("../util/validator");
 const checkAuth = require("../util/check-auth");
+const Voucher = require("../models/Voucher/Voucher");
 
 // const Story = require("../models/Story/Story");
 
@@ -137,10 +138,47 @@ module.exports = {
         role: false,
         myWallet: 0,
         token: token,
+        coupon:0,
         createAt: new Date().toISOString(),
       });
       // const token = generateToken(res);
       return await newUser.save();
     },
+
+    async exchangeVoucher(_,args,context){
+      try {
+          const voucher = await Voucher.findById(args.voucherID);
+          
+          const user = await User.findOne({token:args.token})
+          if(user){
+            if(user.coupon < voucher.couponCondition){
+              throw new UserInputError('Coupon không đủ điều kiện để đổi voucher này')
+            }else{
+              const checkVoucher = await User.findOne({
+                'vouchers.code':voucher.code
+              })
+              if(!checkVoucher){
+                await Voucher.findOneAndUpdate({code:voucher.code},{amount:voucher.amount-1})
+                user.vouchers.unshift({
+                  code:voucher.code,
+                  voucher:voucher.voucher,
+                  displayName:voucher.displayName,
+                  status:false,
+                  createAt:new Date().toDateString()
+                })
+                await user.save();
+                return {
+                  message:"Đổi code thành công"
+                }
+              }else throw new UserInputError('Code chỉ được đổi 1 lần')
+            }
+          }else throw new UserInputError('Tài khoản không tồn tại')
+
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
+
+
   },
 };

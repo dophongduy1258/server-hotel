@@ -39,6 +39,7 @@ module.exports = {
           signature: args.inputs.signature,
           couponCondition: args.inputs.couponCondition,
           isDisplay: args.inputs.isDisplay,
+          price:args.inputs.price,
           amount: args.inputs.amount,
           createAt: new Date().toISOString(),
           updateAt: null,

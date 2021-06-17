@@ -3,33 +3,17 @@ const { Schema } = mongoose;
 
 const OrderDetailSchema = new Schema({
   // roomID: String,
-  numberRoom: {
-    type: String,
-    // required:true
-  },
+  numberRoom: String,
   status: {
     type: Boolean,
-    // required:true
   },
-  sizeRoom: {
-    type: String,
-    // required:true
-  },
-  bed: {
-    type: String,
-    // required:true
-  },
-  amountOfPeople: {
-    type: String,
-    // required:true
-  },
+  sizeRoom: String,
+  bed: String,
+  amountOfPeople: String,
   price: {
     type: Number,
   },
-  quality: {
-    type: String,
-    // required:true
-  },
+  quality: String,
   benefits: [
     {
       benefit: String,
@@ -40,12 +24,13 @@ const OrderDetailSchema = new Schema({
       condition: String,
     },
   ],
-  hotel: {
-    type: String,
-  },
+  hotel: String,
+  moneyDecreased:Number,
   total: Number,
   email: String,
   isCheckout: Boolean,
+  codeVoucher:String,
+  statusOrder:Boolean,
   createAt: String,
 });
 

@@ -11,6 +11,7 @@ const PaymentSchema = new Schema({
   checkout: {
     type: Number,
   },
+  codeVoucher:String,
   email: String,
   createAt: String,
 });
